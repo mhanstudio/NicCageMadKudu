@@ -144,7 +144,7 @@ st.bar_chart(co_star_counts)
 # Movie Duration Distribution
 st.subheader("How Long Are His Movies?")
 plt.figure(figsize=(10, 6))
-plt.hist(cage_data['Duration (min)'], bins=15, color='orange', edgecolor='black')
+plt.hist(cage_data['Duration (min)'], bins=15, color='#E5F0F9', edgecolor='black')
 plt.title('Distribution of Movie Durations for Nicolas Cage Movies')
 plt.xlabel('Duration (minutes)')
 plt.ylabel('Frequency')
@@ -152,7 +152,7 @@ st.pyplot(plt)
 
 # Wordcloud of Reviews
 reviews = ' '.join(cage_data['Review'].dropna())
-wordcloud = WordCloud(width=800, height=400, background_color='white').generate(reviews)
+wordcloud = WordCloud(width=800, height=400, background_color='#E5F0F9').generate(reviews)
 st.subheader("Most Common Words That Appear in Reviews 📝")
 st.image(wordcloud.to_array())
 
