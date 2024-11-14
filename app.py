@@ -25,7 +25,7 @@ st.markdown(
         border-radius: 10px;
     }
     </style>
-    <div class="title">🎬 Fun Facts About Nicolas Cage's Filmography 🌟</div>
+    <div class="title">🎬 A Quick Summary of Nicolas Cage's Filmography 🌟</div>
     """,
     unsafe_allow_html=True,
 )
@@ -35,6 +35,7 @@ st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies in this dataset!
 
 # Movie Posters Slideshow
 st.subheader("Movie Posters")
+st.write(f"Check out some of the posters from his films")
 posters = cage_data['Poster'].dropna().tolist()
 
 # Create a grid of movie posters (5 per row)
@@ -44,14 +45,14 @@ for i, poster_url in enumerate(posters):
     columns[column_index].image(poster_url, width=200)
 
 # Display filtered data
-st.subheader("Movies featuring Nicolas Cage")
+st.subheader("Titles featuring Nicolas Cage")
 st.dataframe(cage_data[['Title', 'Year', 'Genre', 'Rating', 'Metascore', 'Votes']])
 
-# Best and Worst Rated Films
+# What About His Best and Worst Rated Films?
 best_rated = cage_data.loc[cage_data['Rating'].idxmax()]
 worst_rated = cage_data.loc[cage_data['Rating'].idxmin()]
 
-st.subheader("Best Rated Film 🎥")
+st.subheader("Best Rated Film 💪")
 st.write(f"{best_rated['Title']} ({best_rated['Year']}) with a rating of {best_rated['Rating']}")
 
 st.subheader("Worst Rated Film 😞")
@@ -89,11 +90,11 @@ st.bar_chart(genre_ratings)
 
 # Co-stars
 co_stars = cage_data['Cast'].str.split(",").explode().str.strip().value_counts().head(10)
-st.subheader("Top 10 Co-Stars 🌟")
+st.subheader("Most Frequent Co-Stars 🌟")
 st.bar_chart(co_stars)
 
 # Movie Duration Distribution
-st.subheader("Movie Duration Distribution")
+st.subheader("How Long Are His Movies?")
 plt.figure(figsize=(10, 6))
 plt.hist(cage_data['Duration (min)'], bins=15, color='orange', edgecolor='black')
 plt.title('Distribution of Movie Durations for Nicolas Cage Movies')
@@ -104,7 +105,7 @@ st.pyplot(plt)
 # Wordcloud of Reviews
 reviews = ' '.join(cage_data['Review'].dropna())
 wordcloud = WordCloud(width=800, height=400, background_color='white').generate(reviews)
-st.subheader("Review Word Cloud 📝")
+st.subheader("Most Common Words That Appear in Reviews 📝")
 st.image(wordcloud.to_array())
 
 # Add footer for extra flair
@@ -122,7 +123,7 @@ st.markdown(
 st.markdown(
     """
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #FF6347; text-align: center; color: white; padding: 10px;">
-    Created with ❤️ by [Your Name]
+    Created with ❤️ by [Mona]
     </div>
     """, 
     unsafe_allow_html=True
