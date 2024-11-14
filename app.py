@@ -71,18 +71,6 @@ if not cage_data.empty:
     st.subheader("Total IMDb Votes")
     st.write(f"Total votes for Nicolas Cage's movies: {total_votes}")
 
-# Show movie posters as a grid (you can replace these URLs with actual ones)
-st.markdown(
-    """
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
-        <img src="https://link-to-poster-1.com" style="width: 200px; height: 300px; margin: 10px;">
-        <img src="https://link-to-poster-2.com" style="width: 200px; height: 300px; margin: 10px;">
-        <img src="https://link-to-poster-3.com" style="width: 200px; height: 300px; margin: 10px;">
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
-
 # Average Ratings by Genre
 st.subheader("Average Ratings by Genre 🎬")
 genre_ratings = cage_data.groupby('Genre')['Rating'].mean()
