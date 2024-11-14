@@ -16,7 +16,7 @@ if st.checkbox("Show raw data"):
     st.write(data)
 
 # Display the total number of movies
-st.subheader("Total Movies 🎥")
+st.subheader("Title")
 st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies!")
 
 # Yearly Movie Count
