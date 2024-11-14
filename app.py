@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
 import numpy as np
+from wordcloud import WordCloud
+from textblob import TextBlob
 
 # Load the data
 data = pd.read_csv("imdb-movies-dataset.csv")
@@ -16,7 +18,7 @@ st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies in this dataset!
 
 # Display the filtered data as a table
 st.subheader("Movies featuring Nicolas Cage")
-st.dataframe(cage_data[['Title', 'Year', 'Genre', 'Rating', 'Metascore', 'Votes']])
+st.dataframe(cage_data[['Title', 'Year', 'Genre', 'Rating', 'Metascore', 'Votes', 'Duration (min)', 'Review Count']])
 
 # Additional insights
 if not cage_data.empty:
@@ -49,17 +51,11 @@ if not cage_data.empty:
 
     # Who does Nicolas Cage most commonly co-star with?
     st.subheader("Top Co-Stars")
-    # Clean and prepare the 'Cast' column by stripping any leading/trailing whitespaces
     cage_data['Cast'] = cage_data['Cast'].fillna("").apply(lambda x: x.split(',') if x else [])
-
-    # Remove "Nicolas Cage" from the list of co-stars and flatten the list
     co_stars = cage_data['Cast'].apply(lambda x: [actor.strip() for actor in x if actor.strip() != "Nicolas Cage"])
-
-    # Flatten the list and count the occurrences of each co-star
     co_star_counter = Counter([actor for sublist in co_stars for actor in sublist])
-    top_co_stars = co_star_counter.most_common(10)  # Get the top 10 co-stars
+    top_co_stars = co_star_counter.most_common(10)
 
-    # If there are no co-stars, provide a message
     if top_co_stars:
         co_star_names = [actor for actor, _ in top_co_stars]
         co_star_counts = [count for _, count in top_co_stars]
@@ -67,18 +63,37 @@ if not cage_data.empty:
     else:
         st.write("No co-stars found in the dataset.")
 
-    # Best and worst-rated Nicolas Cage movies
-    st.subheader("Best and Worst-Rated Movies")
-    best_movie = cage_data.loc[cage_data['Rating'].idxmax()]
-    worst_movie = cage_data.loc[cage_data['Rating'].idxmin()]
+    # Movie Duration Distribution
+    st.subheader("Movie Duration Distribution")
+    plt.figure(figsize=(10, 6))
+    plt.hist(cage_data['Duration (min)'], bins=15, color='orange', edgecolor='black')
+    plt.title('Distribution of Movie Durations for Nicolas Cage Movies')
+    plt.xlabel('Duration (minutes)')
+    plt.ylabel('Frequency')
+    st.pyplot(plt)
 
-    st.write(f"Best-rated movie: {best_movie['Title']} ({best_movie['Rating']})")
-    st.write(f"Worst-rated movie: {worst_movie['Title']} ({worst_movie['Rating']})")
+    # Review Counts Distribution
+    st.subheader("Review Count Distribution")
+    plt.figure(figsize=(10, 6))
+    plt.hist(cage_data['Review Count'], bins=15, color='green', edgecolor='black')
+    plt.title('Distribution of Review Counts for Nicolas Cage Movies')
+    plt.xlabel('Review Count')
+    plt.ylabel('Frequency')
+    st.pyplot(plt)
 
-    # Average ratings by genre
-    st.subheader("Average Ratings by Genre")
-    genre_avg_ratings = cage_data.explode('Genre').groupby('Genre')['Rating'].mean().sort_values(ascending=False)
-    st.bar_chart(genre_avg_ratings)
+    # Word Cloud for Review Titles
+    st.subheader("Most Common Review Titles (Word Cloud)")
+    review_titles = " ".join(cage_data['Review Title'].dropna().tolist())
+    wordcloud = WordCloud(width=800, height=400, background_color="white").generate(review_titles)
+    st.image(wordcloud.to_array(), caption="Word Cloud of Review Titles")
+
+    # Review Sentiment Analysis (Using TextBlob)
+    st.subheader("Sentiment Analysis of Reviews")
+    sentiment_scores = cage_data['Review'].dropna().apply(lambda x: TextBlob(str(x)).sentiment.polarity)
+    sentiment_avg = sentiment_scores.mean()
+
+    st.write(f"Average sentiment of all reviews: {sentiment_avg:.2f}")
+    st.write("Sentiment score ranges from -1 (negative) to +1 (positive). Positive scores indicate favorable reviews, while negative ones suggest critical reviews.")
 
     # Movie Posters Slideshow
     st.subheader("Movie Posters")
