@@ -75,6 +75,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+[theme]
+base="light"
+primaryColor="#e4a3a3"
+backgroundColor="#e5f0f9"
+secondaryBackgroundColor="#e4f1df"
+
+
 # Adding a title to check the effect
 st.title("Testing Gradient Background")
 
