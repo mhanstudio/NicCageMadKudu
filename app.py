@@ -39,7 +39,7 @@ st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies in this dataset!
 
 # Movie Posters Slideshow
 st.subheader("Movie Posters")
-st.write(f"Check out some of the posters from his films")
+st.write(f"Check out some of the posters from his films:")
 posters = cage_data['Poster'].dropna().tolist()
 
 # Create a grid of movie posters (5 per row)
@@ -81,9 +81,17 @@ genre_ratings = cage_data.groupby('Genre')['Rating'].mean()
 st.bar_chart(genre_ratings)
 
 # Co-stars
-co_stars = cage_data['Cast'].str.split(",").explode().str.strip().value_counts().head(10)
+co_stars = cage_data['Cast'].str.split(",").explode().str.strip()
+
+# Filter out Nicolas Cage from co-stars
+co_stars = co_stars[co_stars != "Nicolas Cage"]
+
+# Count the most frequent co-stars and get the top 10
+co_star_counts = co_stars.value_counts().head(10)
+
+# Display the chart
 st.subheader("Most Frequent Co-Stars 🌟")
-st.bar_chart(co_stars)
+st.bar_chart(co_star_counts)
 
 # Movie Duration Distribution
 st.subheader("How Long Are His Movies?")
