@@ -57,6 +57,27 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+import streamlit as st
+
+# Styling for the gradient background
+st.markdown(
+    """
+    <style>
+    body {
+        background: linear-gradient(135deg, #BBD3E5, #D6F0CD);
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
+
+# Adding a title to check the effect
+st.title("Testing Gradient Background")
+
 # Display the dataset (optional for user exploration)
 if st.checkbox("Show raw data"):
     st.write(data)
