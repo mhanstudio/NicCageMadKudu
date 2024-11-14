@@ -34,7 +34,7 @@ st.markdown(
 st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies in this dataset!")
 
 # Movie Posters Slideshow
-    st.subheader("Movie Posters")
+st.subheader("Movie Posters")
     posters = cage_data['Poster'].dropna().tolist()
 
     # Create a grid of movie posters (5 per row)
