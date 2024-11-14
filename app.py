@@ -123,7 +123,7 @@ st.markdown(
 st.markdown(
     """
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #FF6347; text-align: center; color: white; padding: 10px;">
-    Created with ❤️ by [Mona]
+    Thanks for reading! Created with ❤️ by Mona
     </div>
     """, 
     unsafe_allow_html=True
