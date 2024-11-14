@@ -9,12 +9,11 @@ st.title("Fun Facts about Nicolas Cage's Filmography 🎬")
 # Load the CSV data
 data = pd.read_csv("https://raw.githubusercontent.com/mhanstudio/NicCageMadKudu/refs/heads/main/imdb-movies-dataset.csv")
 
+st.write(data.columns)
+
 # Display the dataset (optional for user exploration)
 if st.checkbox("Show raw data"):
     st.write(data)
-
-# Filter out Nicolas Cage movies from the data
-cage_data = data[data['actor'] == 'Nicolas Cage']
 
 # Display the total number of movies
 st.subheader("Total Movies 🎥")
@@ -44,5 +43,14 @@ st.write(f"{highest_rated_movie['title']} ({highest_rated_movie['year']}) with a
 st.subheader("Genres Nicolas Cage Has Explored")
 genres = cage_data['genre'].value_counts()
 st.bar_chart(genres)
+
+# Show a subset of the data related to Nicolas Cage's filmography
+st.write("Nicolas Cage's Filmography 🎬")
+st.write(cage_data)  # Display the filtered data
+
+# Example Visualization: Count of Movies per Year
+st.subheader("Number of Nicolas Cage Movies per Year")
+movies_per_year = cage_data['year'].value_counts().sort_index()
+st.bar_chart(movies_per_year)
 
 st.write("Hope you enjoyed these insights into Nicolas Cage's movie career!")
