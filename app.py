@@ -23,15 +23,11 @@ if not cage_data.empty:
     st.write(f"The average IMDb rating for Nicolas Cage's movies is {avg_rating:.2f}")
 
     # Display total votes
-    # Replace commas and convert to numeric, turning errors into NaN
-cage_data['Votes'] = cage_data['Votes'].replace(",", "", regex=True)
-cage_data['Votes'] = pd.to_numeric(cage_data['Votes'], errors='coerce')
-
-# Now sum the values, excluding NaNs
-total_votes = cage_data['Votes'].sum()
-
-st.subheader("Total IMDb Votes")
-st.write(f"Total votes for Nicolas Cage's movies: {total_votes}")
+    cage_data['Votes'] = cage_data['Votes'].replace(",", "", regex=True)
+    cage_data['Votes'] = pd.to_numeric(cage_data['Votes'], errors='coerce')
+    total_votes = cage_data['Votes'].sum()
+    st.subheader("Total IMDb Votes")
+    st.write(f"Total votes for Nicolas Cage's movies: {total_votes}")
 
     # Genre distribution
     st.subheader("Genres of Nicolas Cage's Movies")
@@ -44,3 +40,4 @@ st.write(f"Total votes for Nicolas Cage's movies: {total_votes}")
 
 else:
     st.write("No movies found with Nicolas Cage in this dataset.")
+
