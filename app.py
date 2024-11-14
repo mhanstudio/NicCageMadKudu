@@ -10,21 +10,45 @@ data = pd.read_csv("imdb-movies-dataset.csv")
 # Filter data for Nicolas Cage movies
 cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)]
 
+# Define the color scheme
+primary_color = "#BBD3E5"
+secondary_color = "#D6F0CD"
+accent_color = "#F6C6BC"
+highlight_color = "#FF6347"
+
+# Gradient background style
+st.markdown(
+    f"""
+    <style>
+    body {{
+        background: linear-gradient(135deg, {primary_color}, {secondary_color});
+        color: #333;
+    }}
+    .title {{
+        text-align: center;
+        font-size: 50px;
+        color: {highlight_color};
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        background-color: {accent_color};
+        padding: 20px;
+        border-radius: 10px;
+    }}
+    .subheader {{
+        color: {highlight_color};
+    }}
+    .streamlit-expanderHeader {{
+        background-color: {accent_color};
+        color: #333;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Styling the title with markdown for a fun look
 st.markdown(
     """
-    <style>
-    .title {
-        text-align: center;
-        font-size: 50px;
-        color: #FF6347;
-        font-family: 'Arial', sans-serif;
-        font-weight: bold;
-        background-color: #FFFAF0;
-        padding: 20px;
-        border-radius: 10px;
-    }
-    </style>
     <div class="title">🎬 A Quick Summary of Nicolas Cage's Filmography 🌟</div>
     """,
     unsafe_allow_html=True,
@@ -60,7 +84,7 @@ st.subheader("Best Rated Film 💪")
 st.write(f"{best_rated['Title']} ({best_rated['Year']}) with a rating of {best_rated['Rating']}")
 
 st.subheader("Worst Rated Film 😞")
-st.write(f"{worst_rated['Title']} ({worst_rated['Year']}) with a rating of {worst_rated['Rating']}")
+st.write(f"{worst_rated['Title']} ({best_rated['Year']}) with a rating of {worst_rated['Rating']}")
 
 # Average Rating
 if not cage_data.empty:
@@ -96,7 +120,7 @@ st.bar_chart(co_star_counts)
 # Movie Duration Distribution
 st.subheader("How Long Are His Movies?")
 plt.figure(figsize=(10, 6))
-plt.hist(cage_data['Duration (min)'], bins=15, color='orange', edgecolor='black')
+plt.hist(cage_data['Duration (min)'], bins=15, color=highlight_color, edgecolor='black')
 plt.title('Distribution of Movie Durations for Nicolas Cage Movies')
 plt.xlabel('Duration (minutes)')
 plt.ylabel('Frequency')
@@ -121,8 +145,8 @@ st.markdown(
 )
 
 st.markdown(
-    """
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #FF6347; text-align: center; color: white; padding: 10px;">
+    f"""
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: {highlight_color}; text-align: center; color: white; padding: 10px;">
     Thanks for reading! Created with ❤️ by Mona
     </div>
     """, 
