@@ -75,10 +75,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-# Adding a title to check the effect
-st.title("Testing Gradient Background")
-
 # Display the dataset (optional for user exploration)
 if st.checkbox("Show raw data"):
     st.write(data)
