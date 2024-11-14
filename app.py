@@ -14,20 +14,42 @@ cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)
 st.markdown(
     """
     <style>
+    /* Full page background gradient */
     body {
         background: linear-gradient(135deg, #BBD3E5, #D6F0CD);
         color: #333;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
     }
-
+    
+    /* Title section */
     .title {
         text-align: center;
         font-size: 50px;
         color: #FF6347;
-        font-family: 'Arial', sans-serif;
         font-weight: bold;
         background-color: #FFFAF0;
         padding: 20px;
         border-radius: 10px;
+        margin-top: 20px;
+    }
+    
+    /* Add spacing for the footer */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #FF6347;
+        text-align: center;
+        color: white;
+        padding: 10px;
+    }
+    
+    /* Hide Streamlit footer */
+    footer {
+        visibility: hidden;
     }
     </style>
     <div class="title">🎬 A Quick Summary of Nicolas Cage's Filmography 🌟</div>
@@ -65,7 +87,7 @@ st.subheader("Best Rated Film 💪")
 st.write(f"{best_rated['Title']} ({best_rated['Year']}) with a rating of {best_rated['Rating']}")
 
 st.subheader("Worst Rated Film 😞")
-st.write(f"{worst_rated['Title']} ({worst_rated['Year']}) with a rating of {worst_rated['Rating']}")
+st.write(f"{worst_rated['Title']} ({best_rated['Year']}) with a rating of {worst_rated['Rating']}")
 
 # Average Rating
 if not cage_data.empty:
@@ -116,19 +138,8 @@ st.image(wordcloud.to_array())
 # Add footer for extra flair
 st.markdown(
     """
-    <style>
-    footer {
-        visibility: hidden;
-    }
-    </style>
-    """, 
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    """
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #FF6347; text-align: center; color: white; padding: 10px;">
-    Thanks for reading! Created with ❤️ by Mona
+    <div class="footer">
+        Thanks for reading! Created with ❤️ by Mona
     </div>
     """, 
     unsafe_allow_html=True
