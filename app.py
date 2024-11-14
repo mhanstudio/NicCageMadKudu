@@ -33,6 +33,16 @@ st.markdown(
 # Show data insights
 st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies in this dataset!")
 
+# Movie Posters Slideshow
+    st.subheader("Movie Posters")
+    posters = cage_data['Poster'].dropna().tolist()
+
+    # Create a grid of movie posters (5 per row)
+    columns = st.columns(5)
+    for i, poster_url in enumerate(posters):
+        column_index = i % 5
+        columns[column_index].image(poster_url, width=200)
+
 # Display filtered data
 st.subheader("Movies featuring Nicolas Cage")
 st.dataframe(cage_data[['Title', 'Year', 'Genre', 'Rating', 'Metascore', 'Votes']])
@@ -81,6 +91,15 @@ st.bar_chart(genre_ratings)
 co_stars = cage_data['Cast'].str.split(",").explode().str.strip().value_counts().head(10)
 st.subheader("Top 10 Co-Stars 🌟")
 st.bar_chart(co_stars)
+
+# Movie Duration Distribution
+    st.subheader("Movie Duration Distribution")
+    plt.figure(figsize=(10, 6))
+    plt.hist(cage_data['Duration (min)'], bins=15, color='orange', edgecolor='black')
+    plt.title('Distribution of Movie Durations for Nicolas Cage Movies')
+    plt.xlabel('Duration (minutes)')
+    plt.ylabel('Frequency')
+    st.pyplot(plt)
 
 # Wordcloud of Reviews
 reviews = ' '.join(cage_data['Review'].dropna())
