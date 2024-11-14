@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Load the data
 data = pd.read_csv("imdb-movies-dataset.csv")
@@ -34,10 +35,15 @@ if not cage_data.empty:
     genre_counts = cage_data['Genre'].str.get_dummies(sep=', ').sum().sort_values(ascending=False)
     st.bar_chart(genre_counts)
 
-    # Ratings distribution
+    # Ratings distribution (fixed with matplotlib)
     st.subheader("Ratings Distribution")
-    st.hist_chart(cage_data['Rating'].dropna())
+    ratings = cage_data['Rating'].dropna()
+    plt.figure(figsize=(10, 6))
+    plt.hist(ratings, bins=20, color='skyblue', edgecolor='black')
+    plt.title('Distribution of Ratings for Nicolas Cage Movies')
+    plt.xlabel('IMDb Rating')
+    plt.ylabel('Frequency')
+    st.pyplot(plt)
 
 else:
     st.write("No movies found with Nicolas Cage in this dataset.")
-
