@@ -30,6 +30,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Display the dataset (optional for user exploration)
+if st.checkbox("Show raw data"):
+    st.write(data)
+
 # Show data insights
 st.write(f"Nicolas Cage has appeared in {len(cage_data)} movies in this dataset!")
 
