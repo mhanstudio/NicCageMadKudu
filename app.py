@@ -49,7 +49,46 @@ if not cage_data.empty:
 
     # Who does Nicolas Cage most commonly co-star with?
     st.subheader("Top Co-Stars")
-    co_stars = cage_data['Cast'].str.split(',').apply(lambda x: [actor.strip() for actor in x if actor.strip() != "Nicolas Cage"])
+    # Clean and prepare the 'Cast' column by stripping any leading/trailing whitespaces
+    cage_data['Cast'] = cage_data['Cast'].fillna("").apply(lambda x: x.split(',') if x else [])
+
+    # Remove "Nicolas Cage" from the list of co-stars and flatten the list
+    co_stars = cage_data['Cast'].apply(lambda x: [actor.strip() for actor in x if actor.strip() != "Nicolas Cage"])
+
+    # Flatten the list and count the occurrences of each co-star
     co_star_counter = Counter([actor for sublist in co_stars for actor in sublist])
     top_co_stars = co_star_counter.most_common(10)  # Get the top 10 co-stars
-    co_sta
+
+    # If there are no co-stars, provide a message
+    if top_co_stars:
+        co_star_names = [actor for actor, _ in top_co_stars]
+        co_star_counts = [count for _, count in top_co_stars]
+        st.bar_chart(dict(zip(co_star_names, co_star_counts)))
+    else:
+        st.write("No co-stars found in the dataset.")
+
+    # Best and worst-rated Nicolas Cage movies
+    st.subheader("Best and Worst-Rated Movies")
+    best_movie = cage_data.loc[cage_data['Rating'].idxmax()]
+    worst_movie = cage_data.loc[cage_data['Rating'].idxmin()]
+
+    st.write(f"Best-rated movie: {best_movie['Title']} ({best_movie['Rating']})")
+    st.write(f"Worst-rated movie: {worst_movie['Title']} ({worst_movie['Rating']})")
+
+    # Average ratings by genre
+    st.subheader("Average Ratings by Genre")
+    genre_avg_ratings = cage_data.explode('Genre').groupby('Genre')['Rating'].mean().sort_values(ascending=False)
+    st.bar_chart(genre_avg_ratings)
+
+    # Movie Posters Slideshow
+    st.subheader("Movie Posters")
+    posters = cage_data['Poster'].dropna().tolist()
+
+    # Create a grid of movie posters (5 per row)
+    columns = st.columns(5)
+    for i, poster_url in enumerate(posters):
+        column_index = i % 5
+        columns[column_index].image(poster_url, width=200)
+
+else:
+    st.write("No movies found with Nicolas Cage in this dataset.")
