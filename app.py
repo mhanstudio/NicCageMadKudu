@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 st.title("Fun Facts about Nicolas Cage's Filmography 🎬")
 
 # Load the CSV data
-data = pd.read_csv("imdb.csv")
+data = pd.read_csv("https://raw.githubusercontent.com/mhanstudio/NicCageMadKudu/refs/heads/main/imdb-movies-dataset.csv")
 
 # Display the dataset (optional for user exploration)
 if st.checkbox("Show raw data"):
