@@ -72,15 +72,6 @@ if not cage_data.empty:
     plt.ylabel('Frequency')
     st.pyplot(plt)
 
-    # Review Counts Distribution
-    st.subheader("Review Count Distribution")
-    plt.figure(figsize=(10, 6))
-    plt.hist(cage_data['Review Count'], bins=15, color='green', edgecolor='black')
-    plt.title('Distribution of Review Counts for Nicolas Cage Movies')
-    plt.xlabel('Review Count')
-    plt.ylabel('Frequency')
-    st.pyplot(plt)
-
     # Word Cloud for Review Titles
     st.subheader("Most Common Review Titles (Word Cloud)")
     review_titles = " ".join(cage_data['Review Title'].dropna().tolist())
