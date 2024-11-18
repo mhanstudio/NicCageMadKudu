@@ -16,8 +16,8 @@ st.title("Exploring Nicolas Cage's Cinematic Journey 🎬")
 st.markdown(
     """
     Nicolas Cage is a name that stands out in Hollywood, known for his diverse roles ranging from blockbuster action films to quirky indie dramas. 
-    His career has spanned decades, delivering unforgettable performances across numerous genres. With this app, let's dive into his filmography 
-    and uncover some fascinating insights about his movies, ratings, and impact on audiences. Ready to explore? Let's get started!
+    His career has spanned decades, delivering unforgettable performances across numerous genres. With this site, let's dive into his some of his filmography 
+    and uncover some insights about his movies, ratings, and impact on audiences. Ready to explore? Let's get started!
     """
 )
 
@@ -82,7 +82,7 @@ if not cage_data.empty:
 
     st.markdown(
         """
-        Cage’s highest-rated movie showcases his talent at its peak, while his lowest-rated work might offer insights into 
+        Cage’s highest-rated movie, Adaptation (2002) showcases his talent at its peak, while his lowest-rated (Adaptation, 2020) work might offer insights into 
         the challenges of maintaining consistent critical acclaim over a long career.
         """
     )
@@ -116,7 +116,7 @@ if not cage_data.empty:
     st.markdown(
         """
         The ratings distribution reveals that most of Cage’s films fall within the **6 to 8 range** on IMDb, indicating a generally favorable 
-        reception. However, there are outliers—movies that either didn’t resonate with audiences or became cult classics over time.
+        and positive reception. However, there are outliers—movies that either didn’t resonate with audiences or became cult classics over time.
         """
     )
 
@@ -126,14 +126,7 @@ wordcloud = WordCloud(width=800, height=400, background_color='#E5F0F9').generat
 st.subheader("Most Common Words That Appear in Reviews 📝")
 st.image(wordcloud.to_array())
 
-    
-# Total votes analysis
-st.subheader("Total Votes for Nicolas Cage's Movies")
-try:
-    total_votes = cage_data['Votes'].replace(",", "", regex=True).astype(int).sum()
-    st.write(f"Across all movies, Nicolas Cage's films have accumulated a total of **{total_votes:,} votes** on IMDb.")
-except Exception as e:
-    st.write("An error occurred while processing the votes. Please check the dataset.")
+
 
 # Conclusion
 st.subheader("Wrapping Up Nicolas Cage’s Filmography")
