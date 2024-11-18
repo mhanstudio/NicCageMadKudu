@@ -142,11 +142,22 @@ st.markdown(
 )
 
 # Add footer for extra flair
-st.markdown(
-    """
-    <div class="footer">
-        Thanks for reading! Created with ❤️ by Mona
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
+footer = """
+<style>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        color: #000;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+    }
+</style>
+<div class="footer">
+    Thanks for reading! Created with ❤️ by Mona
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
