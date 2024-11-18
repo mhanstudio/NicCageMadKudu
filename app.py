@@ -13,7 +13,7 @@ cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)
 
 # Introduction
 st.title("Exploring Nicolas Cage's Cinematic Journey 🎬")
-st.image("https://www.pngkey.com/png/full/192-1925614_nicolas-cage.png", use_column_width=True)
+st.image("https://www.pngkey.com/png/full/192-1925614_nicolas-cage.png", caption="The Man, The Myth, The Legend", width=300)
 st.markdown(
     """
     Nicolas Cage is a name that stands out in Hollywood, known for his diverse roles ranging from blockbuster action films to quirky indie dramas. 
