@@ -75,15 +75,14 @@ st.markdown(
     """
 )
 
-    # Total Votes
+   # Total votes analysis
+st.subheader("Total Votes for Nicolas Cage's Movies")
+try:
     total_votes = cage_data['Votes'].replace(",", "", regex=True).astype(int).sum()
-    st.subheader("Audience Engagement: Total IMDb Votes")
-    st.write(f"Combined, Cage's movies have garnered a staggering **{total_votes:,} votes** on IMDb.")
-    st.markdown(
-        """
-        The number of votes highlights the widespread reach of Cage’s films and the passionate discussions they spark among fans worldwide.
-        """
-    )
+    st.write(f"Across all movies, Nicolas Cage's films have accumulated a total of **{total_votes:,} votes** on IMDb.")
+except Exception as e:
+    st.write("An error occurred while processing the votes. Please check the dataset.")
+
 else:
     st.write("No movies found with Nicolas Cage in this dataset.")
 
