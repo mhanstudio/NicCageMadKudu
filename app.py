@@ -37,15 +37,23 @@ st.markdown(
 
 st.markdown(
         """
-        A glance at Nicolas Cage's movies shows just how visually striking and diverse his filmography is. 
-        Each poster tells its own story, reflecting the unique energy and themes of the movie.
+        First - a quick glance at Nicolas Cage's movies shows just how visually striking and diverse his filmography is. 
+        Each poster tells its own story, reflecting the unique energy and themes of each film.
         """
     )
 
 # Movie Posters Slideshow
 st.subheader("Movie Posters")
-st.write(f"Check out some of the posters from his films:")
+st.write(f"Check out some of the posters here:")
 posters = cage_data['Poster'].dropna().tolist()
+
+# Create a grid of movie posters (5 per row)
+columns = st.columns(5)  
+for i, poster_url in enumerate(posters):
+    column_index = i % 5
+    columns[column_index].image(poster_url, width=200)
+
+
 
 # Genre Distribution
 st.subheader("Genres of Nicolas Cage's Movies")
