@@ -19,7 +19,6 @@ st.markdown(
         <img src="https://www.pngkey.com/png/full/192-1925614_nicolas-cage.png" 
              alt="Nicolas Cage" 
              style="width: 300px;">
-        <p style="font-style: italic;">The Man, The Myth, The Legend</p>
     </div>
     """,
     unsafe_allow_html=True
