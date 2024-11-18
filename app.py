@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from textblob import TextBlob
+import altair as alt
 
 # Load the data
 data = pd.read_csv("imdb-movies-dataset.csv")
@@ -54,14 +55,25 @@ if not cage_data.empty:
     )
 
     # Ratings Distribution
-    st.subheader("Distribution of IMDb Ratings")
-    st.hist_chart(cage_data['Rating'].dropna())
-    st.markdown(
-        """
-        The ratings distribution reveals that most of Cage’s films fall within the **6 to 8 range** on IMDb, indicating a generally favorable 
-        reception. However, there are outliers—movies that either didn’t resonate with audiences or became cult classics over time.
-        """
+st.subheader("Distribution of IMDb Ratings")
+rating_distribution = (
+    alt.Chart(cage_data)
+    .mark_bar()
+    .encode(
+        alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="IMDb Rating"),
+        alt.Y("count():Q", title="Number of Movies"),
+        tooltip=["Rating:Q"]
     )
+    .properties(title="Histogram of IMDb Ratings", width=600)
+)
+
+st.altair_chart(rating_distribution, use_container_width=True)
+st.markdown(
+    """
+    The ratings distribution reveals that most of Cage’s films fall within the **6 to 8 range** on IMDb, indicating a generally favorable 
+    reception. However, there are outliers—movies that either didn’t resonate with audiences or became cult classics over time.
+    """
+)
 
     # Total Votes
     total_votes = cage_data['Votes'].replace(",", "", regex=True).astype(int).sum()
