@@ -8,10 +8,6 @@ import altair as alt
 # Load the data
 data = pd.read_csv("imdb-movies-dataset.csv")
 
-# Display the dataset (optional for user exploration)
-if st.checkbox("Show raw data"):
-    st.write(data)
-
 # Filter data for Nicolas Cage movies
 cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)]
 
@@ -24,6 +20,10 @@ st.markdown(
     and uncover some fascinating insights about his movies, ratings, and impact on audiences. Ready to explore? Let's get started!
     """
 )
+
+# Display the dataset (optional for user exploration)
+if st.checkbox("Show raw data"):
+    st.write(data)
 
 # Total Movies
 st.subheader("How Prolific is Nicolas Cage?")
