@@ -12,10 +12,10 @@ data = pd.read_csv("imdb-movies-dataset.csv")
 cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)]
 
 # Introduction
-st.title("Exploring Nicolas Cage's Cinematic Journey 🎬")
 st.markdown(
     """
     <div style="text-align: center;">
+        <h1>Exploring Nicolas Cage's Cinematic Journey 🎬</h1>
         <img src="https://www.pngkey.com/png/full/192-1925614_nicolas-cage.png" 
              alt="Nicolas Cage" 
              style="width: 300px;">
@@ -23,6 +23,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 st.markdown(
     """
