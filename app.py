@@ -42,6 +42,27 @@ st.markdown(
     """
 )
 
+# Top and Lowest Rated Movies
+st.subheader("Cage's Top & Lowest Rated Movies")
+if not cage_data.empty:
+    top_movie = cage_data.loc[cage_data['Rating'].idxmax()]
+    lowest_movie = cage_data.loc[cage_data['Rating'].idxmin()]
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.image(top_movie['Poster'], caption=f"Top Rated: {top_movie['Title']} ({top_movie['Rating']})", use_column_width=True)
+
+    with col2:
+        st.image(lowest_movie['Poster'], caption=f"Lowest Rated: {lowest_movie['Title']} ({lowest_movie['Rating']})", use_column_width=True)
+
+    st.markdown(
+        """
+        Cage’s highest-rated movie showcases his talent at its peak, while his lowest-rated work might offer insights into 
+        the challenges of maintaining consistent critical acclaim over a long career.
+        """
+    )
+
 # Average Rating
 if not cage_data.empty:
     avg_rating = cage_data['Rating'].mean()
@@ -55,36 +76,49 @@ if not cage_data.empty:
     )
 
     # Ratings Distribution
-st.subheader("Distribution of IMDb Ratings")
-rating_distribution = (
-    alt.Chart(cage_data)
-    .mark_bar()
-    .encode(
-        alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="IMDb Rating"),
-        alt.Y("count():Q", title="Number of Movies"),
-        tooltip=["Rating:Q"]
+    st.subheader("Distribution of IMDb Ratings")
+    rating_distribution = (
+        alt.Chart(cage_data)
+        .mark_bar()
+        .encode(
+            alt.X("Rating:Q", bin=alt.Bin(maxbins=20), title="IMDb Rating"),
+            alt.Y("count():Q", title="Number of Movies"),
+            tooltip=["Rating:Q"]
+        )
+        .properties(title="Histogram of IMDb Ratings", width=600)
     )
-    .properties(title="Histogram of IMDb Ratings", width=600)
-)
 
-st.altair_chart(rating_distribution, use_container_width=True)
-st.markdown(
-    """
-    The ratings distribution reveals that most of Cage’s films fall within the **6 to 8 range** on IMDb, indicating a generally favorable 
-    reception. However, there are outliers—movies that either didn’t resonate with audiences or became cult classics over time.
-    """
-)
+    st.altair_chart(rating_distribution, use_container_width=True)
+    st.markdown(
+        """
+        The ratings distribution reveals that most of Cage’s films fall within the **6 to 8 range** on IMDb, indicating a generally favorable 
+        reception. However, there are outliers—movies that either didn’t resonate with audiences or became cult classics over time.
+        """
+    )
 
-   # Total votes analysis
+# Movie Posters Word Cloud
+st.subheader("Nicolas Cage’s Movies: A Visual Journey")
+if not cage_data.empty:
+    posters = cage_data['Poster'].dropna()
+    fig, ax = plt.subplots(figsize=(10, 8))
+    wordcloud = WordCloud(width=800, height=400, background_color="white").generate(" ".join(posters))
+    ax.imshow(wordcloud, interpolation="bilinear")
+    ax.axis("off")
+    st.pyplot(fig)
+    st.markdown(
+        """
+        A glance at Nicolas Cage's movies shows just how visually striking and diverse his filmography is. 
+        Each poster tells its own story, reflecting the unique energy and themes of the movie.
+        """
+    )
+
+# Total votes analysis
 st.subheader("Total Votes for Nicolas Cage's Movies")
 try:
     total_votes = cage_data['Votes'].replace(",", "", regex=True).astype(int).sum()
     st.write(f"Across all movies, Nicolas Cage's films have accumulated a total of **{total_votes:,} votes** on IMDb.")
 except Exception as e:
     st.write("An error occurred while processing the votes. Please check the dataset.")
-
-else:
-    st.write("No movies found with Nicolas Cage in this dataset.")
 
 # Conclusion
 st.subheader("Wrapping Up Nicolas Cage’s Filmography")
