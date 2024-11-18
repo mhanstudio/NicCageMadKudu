@@ -13,12 +13,22 @@ cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)
 
 # Introduction
 st.title("Exploring Nicolas Cage's Cinematic Journey 🎬")
-st.image("https://www.pngkey.com/png/full/192-1925614_nicolas-cage.png", caption="The Man, The Myth, The Legend", width=300)
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <img src="https://www.pngkey.com/png/full/192-1925614_nicolas-cage.png" 
+             alt="Nicolas Cage" 
+             style="width: 300px;">
+        <p style="font-style: italic;">The Man, The Myth, The Legend</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 st.markdown(
     """
     Nicolas Cage is a name that stands out in Hollywood, known for his diverse roles ranging from blockbuster action films to quirky indie dramas. 
-    His career has spanned decades, delivering unforgettable performances across numerous genres. With this site, let's dive into his some of his filmography 
-    and uncover some insights about his movies, ratings, and impact on audiences. Ready to explore? Let's get started!
+    His career has spanned decades, delivering unforgettable performances across numerous genres. With this site, let's dive into some of his filmography 
+    and uncover insights about his movies, ratings, and impact on audiences. Ready to explore? Let's get started!
     """
 )
 
