@@ -8,6 +8,10 @@ import altair as alt
 # Load the data
 data = pd.read_csv("imdb-movies-dataset.csv")
 
+# Display the dataset (optional for user exploration)
+if st.checkbox("Show raw data"):
+    st.write(data)
+
 # Filter data for Nicolas Cage movies
 cage_data = data[data['Cast'].str.contains("Nicolas Cage", case=False, na=False)]
 
@@ -30,6 +34,18 @@ st.markdown(
     But what genres does he excel in? Let’s explore the distribution of genres in his filmography.
     """
 )
+
+st.markdown(
+        """
+        A glance at Nicolas Cage's movies shows just how visually striking and diverse his filmography is. 
+        Each poster tells its own story, reflecting the unique energy and themes of the movie.
+        """
+    )
+
+# Movie Posters Slideshow
+st.subheader("Movie Posters")
+st.write(f"Check out some of the posters from his films:")
+posters = cage_data['Poster'].dropna().tolist()
 
 # Genre Distribution
 st.subheader("Genres of Nicolas Cage's Movies")
@@ -96,22 +112,13 @@ if not cage_data.empty:
         """
     )
 
-# Movie Posters Word Cloud
-st.subheader("Nicolas Cage’s Movies: A Visual Journey")
-if not cage_data.empty:
-    posters = cage_data['Poster'].dropna()
-    fig, ax = plt.subplots(figsize=(10, 8))
-    wordcloud = WordCloud(width=800, height=400, background_color="white").generate(" ".join(posters))
-    ax.imshow(wordcloud, interpolation="bilinear")
-    ax.axis("off")
-    st.pyplot(fig)
-    st.markdown(
-        """
-        A glance at Nicolas Cage's movies shows just how visually striking and diverse his filmography is. 
-        Each poster tells its own story, reflecting the unique energy and themes of the movie.
-        """
-    )
+# Wordcloud of Reviews
+reviews = ' '.join(cage_data['Review'].dropna())
+wordcloud = WordCloud(width=800, height=400, background_color='#E5F0F9').generate(reviews)
+st.subheader("Most Common Words That Appear in Reviews 📝")
+st.image(wordcloud.to_array())
 
+    
 # Total votes analysis
 st.subheader("Total Votes for Nicolas Cage's Movies")
 try:
